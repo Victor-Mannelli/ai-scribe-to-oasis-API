@@ -1,25 +1,28 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@nestjs/common';
+import { PatientsRepository } from './patients.repository';
 
 @Injectable()
 export class PatientsService {
-  create(createPatientDto) {
-    return 'This action adds a new patient';
+  constructor(private readonly patientsRepository: PatientsRepository) {}
+
+  async create(createPatientDto) {
+    return await this.patientsRepository.create(createPatientDto);
   }
 
-  findAll() {
-    return `This action returns all patients`;
+  async findAll() {
+    return await this.patientsRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} patient`;
+  async findOne(id: string) {
+    return await this.patientsRepository.findOne(id);
   }
 
-  update(id: number, updatePatientDto) {
-    return `This action updates a #${id} patient`;
+  async update(id: string, updatePatientDto) {
+    return await this.patientsRepository.update(id, updatePatientDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} patient`;
+  async remove(id: string) {
+    return await this.patientsRepository.remove(id);
   }
 }

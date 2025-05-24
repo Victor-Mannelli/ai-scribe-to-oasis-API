@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -9,13 +8,36 @@ datasource db {
 }
 
 model Patient {
-  id String @id @default(cuid())
+  id               String   @id @default(cuid())
+  name             String
+  mrn              String // Medical Record Number
+  dateOfBirth      DateTime
+  startOfCareDate  DateTime
+  visitDate        DateTime
+  discipline       String
+  clinician        String
+  referralSource   String
+  physician        String
+  status           String
+  primaryInsurance String
+  Note             Note[]
 
   @@map("patients")
 }
 
 model Note {
-  id String @id @default(cuid())
+  id                       String @id @default(cuid())
+  interactionTranscription String
+  interactionSummary       String
+  M1800                    Int
+  M1810                    Int
+  M1820                    Int
+  M1830                    Int
+  M1840                    Int
+  M1850                    Int
+  M1860                    Int
+  patientId String?
+  Patient   Patient? @relation(fields: [patientId], references: [id])
 
   @@map("notes")
 }

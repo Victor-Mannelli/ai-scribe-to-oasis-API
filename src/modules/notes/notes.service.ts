@@ -1,25 +1,28 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { NotesRepository } from './notes.repository';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class NotesService {
-  create(createNoteDto) {
-    return 'This action adds a new note';
+  constructor(private readonly notesRepository: NotesRepository) {}
+
+  async create(createNoteDto) {
+    return await this.notesRepository.create(createNoteDto);
   }
 
-  findAll() {
-    return `This action returns all notes`;
+  async findAll() {
+    return await this.notesRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} note`;
+  async findOne(id: string) {
+    return await this.notesRepository.findOne(id);
   }
 
-  update(id: number, updateNoteDto) {
-    return `This action updates a #${id} note`;
+  async update(id: string, updateNoteDto) {
+    return await this.notesRepository.update(id, updateNoteDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} note`;
+  async remove(id: string) {
+    return await this.notesRepository.remove(id);
   }
 }

@@ -3,3 +3,7 @@ dev:
 
 build:
 	npm run build
+
+dbsetup:
+	npx prisma generate
+	npx prisma migrate dev
