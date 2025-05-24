@@ -21,6 +21,9 @@ export class PatientsRepository {
       where: {
         id,
       },
+      include: {
+        note: true,
+      },
     });
   }
 

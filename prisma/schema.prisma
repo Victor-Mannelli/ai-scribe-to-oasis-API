@@ -20,13 +20,13 @@ model Patient {
   physician        String
   status           String
   primaryInsurance String
-  Note             Note[]
+  note             Note[]
 
   @@map("patients")
 }
 
 model Note {
-  id                       String @id @default(cuid())
+  id                       String   @id @default(cuid())
   interactionTranscription String
   interactionSummary       String
   M1800                    Int
@@ -36,8 +36,8 @@ model Note {
   M1840                    Int
   M1850                    Int
   M1860                    Int
-  patientId String?
-  Patient   Patient? @relation(fields: [patientId], references: [id])
+  patientId                String?
+  Patient                  Patient? @relation(fields: [patientId], references: [id])
 
   @@map("notes")
 }

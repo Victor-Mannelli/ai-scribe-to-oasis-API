@@ -1,13 +1,26 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { NotesRepository } from './notes.repository';
+import { AiService } from '../ai/ai.service';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class NotesService {
-  constructor(private readonly notesRepository: NotesRepository) {}
+  constructor(
+    private readonly notesRepository: NotesRepository,
+    private readonly aiService: AiService,
+  ) {}
 
-  async create(createNoteDto) {
+  async createWithText(createNoteDto) {
     return await this.notesRepository.create(createNoteDto);
+  }
+  async createWithAudio(createNoteDto, file) {
+    try {
+      const transcript = await this.aiService.transcribeAudio(file.buffer);
+      // const response = await this.aiService.processOasisData(transcript);
+      return transcript;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async findAll() {
