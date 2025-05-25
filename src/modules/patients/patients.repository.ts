@@ -22,7 +22,11 @@ export class PatientsRepository {
         id,
       },
       include: {
-        note: true,
+        note: {
+          orderBy: {
+            createdAt: 'desc',
+          },
+        },
       },
     });
   }

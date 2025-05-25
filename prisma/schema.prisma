@@ -37,8 +37,10 @@ model Note {
   M1845                    Int
   M1850                    Int
   M1860                    Int
-  patientId                String?
-  Patient                  Patient? @relation(fields: [patientId], references: [id])
+  patientId                String
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @updatedAt
+  Patient                  Patient @relation(fields: [patientId], references: [id])
 
   @@map("notes")
 }
