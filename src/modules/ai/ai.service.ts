@@ -3,6 +3,7 @@ import { parseAiResponse } from 'src/utils/parseAiResponse';
 import { Injectable } from '@nestjs/common';
 import { AssemblyAI } from 'assemblyai';
 import OpenAI from 'openai';
+import { OasisDataResult } from 'src/types';
 
 @Injectable()
 export class AiService {
@@ -49,7 +50,7 @@ export class AiService {
     return transcript.text;
   }
 
-  async processOasisData(transcript: string) {
+  async processOasisData(transcript: string): Promise<OasisDataResult> {
     const prompt = oasisPrompt(transcript);
 
     const completion = await this.openai.chat.completions.create({

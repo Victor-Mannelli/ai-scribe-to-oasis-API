@@ -38,9 +38,10 @@ model Note {
   M1850                    Int
   M1860                    Int
   patientId                String
+  audioUrl                 String?
   createdAt                DateTime @default(now())
   updatedAt                DateTime @updatedAt
-  Patient                  Patient @relation(fields: [patientId], references: [id])
+  Patient                  Patient  @relation(fields: [patientId], references: [id])
 
   @@map("notes")
 }

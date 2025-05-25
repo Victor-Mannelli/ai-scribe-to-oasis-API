@@ -25,8 +25,11 @@ export class NotesController {
 
   @Post('audio')
   @UseInterceptors(FileInterceptor('file'))
-  async createWithAudio(@UploadedFile() file: Express.Multer.File) {
-    return await this.notesService.createWithAudio(file);
+  async createWithAudio(
+    @UploadedFile() file: Express.Multer.File,
+    @Body('patientId') patientId: string,
+  ) {
+    return await this.notesService.createWithAudio(file, patientId);
   }
 
   @Get()
