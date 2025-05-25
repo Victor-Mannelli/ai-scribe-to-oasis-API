@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Get,
   Post,
@@ -10,6 +9,7 @@ import {
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
+import { CreateNoteDto, UpdateNoteDto } from './notes.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { NotesService } from './notes.service';
 import { Express } from 'express';
@@ -19,17 +19,14 @@ export class NotesController {
   constructor(private readonly notesService: NotesService) {}
 
   @Post('text')
-  async createWithText(@Body() createNoteDto) {
+  async createWithText(@Body() createNoteDto: CreateNoteDto) {
     return await this.notesService.createWithText(createNoteDto);
   }
 
   @Post('audio')
   @UseInterceptors(FileInterceptor('file'))
-  async createWithAudio(
-    @Body() createNoteDto: any,
-    @UploadedFile() file: Express.Multer.File,
-  ) {
-    return await this.notesService.createWithAudio(createNoteDto, file);
+  async createWithAudio(@UploadedFile() file: Express.Multer.File) {
+    return await this.notesService.createWithAudio(file);
   }
 
   @Get()
@@ -43,7 +40,7 @@ export class NotesController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateNoteDto) {
+  async update(@Param('id') id: string, @Body() updateNoteDto: UpdateNoteDto) {
     return await this.notesService.update(id, updateNoteDto);
   }
 

@@ -34,6 +34,7 @@ model Note {
   M1820                    Int
   M1830                    Int
   M1840                    Int
+  M1845                    Int
   M1850                    Int
   M1860                    Int
   patientId                String?

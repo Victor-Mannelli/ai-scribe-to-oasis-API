@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { NotesRepository } from './notes.repository';
 import { AiService } from '../ai/ai.service';
 import { Injectable } from '@nestjs/common';
@@ -13,11 +12,10 @@ export class NotesService {
   async createWithText(createNoteDto) {
     return await this.notesRepository.create(createNoteDto);
   }
-  async createWithAudio(createNoteDto, file) {
+  async createWithAudio(file: Express.Multer.File) {
     try {
       const transcript = await this.aiService.transcribeAudio(file.buffer);
-      // const response = await this.aiService.processOasisData(transcript);
-      return transcript;
+      return await this.aiService.processOasisData(transcript);
     } catch (error) {
       console.log(error);
     }

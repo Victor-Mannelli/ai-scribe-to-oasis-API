@@ -27,14 +27,15 @@
     "@nestjs/swagger": "^11.2.0",
     "@prisma/client": "^6.8.2",
     "@types/multer": "^1.4.12",
+    "assemblyai": "^4.12.2",
+    "class-validator": "^0.14.2",
     "dotenv": "^16.5.0",
     "multer": "^2.0.0",
     "openai": "^4.103.0",
     "prisma": "^6.8.2",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
-    "swagger-ui-express": "^5.0.0",
-    "tmp": "^0.2.3"
+    "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^11.0.0",
