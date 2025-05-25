@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oasis-scribe
+  labels:
+    app: oasis-scribe
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: oasis-scribe
+  template:
+    metadata:
+      labels:
+        app: oasis-scribe
+    spec:
+      containers:
+        - name: oasis-scribe
+          image: <your-ecr-registry>/oasis-scribe:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: oasis-scribe-secrets
+                  key: DATABASE_URL
+            - name: OPENROUTER_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: oasis-scribe-secrets
+                  key: OPENROUTER_API_KEY
+            - name: ASSEMBLYAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: oasis-scribe-secrets
+                  key: ASSEMBLYAI_API_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: oasis-scribe-service
+spec:
+  selector:
+    app: oasis-scribe
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: LoadBalancer
